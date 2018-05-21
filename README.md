@@ -1,1 +1,1 @@
-# A repository for algorithms with C#, Kotlin and Java
+# repository for algorithms with C#, Kotlin and Java
