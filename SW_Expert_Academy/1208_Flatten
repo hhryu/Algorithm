@@ -1,0 +1,48 @@
+import com.sun.org.apache.xml.internal.serialize.LineSeparator;
+import jdk.nashorn.internal.runtime.FindProperty;
+
+import java.rmi.server.RMIClientSocketFactory;
+import java.util.*;
+
+public class Solution {
+    public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
+        int testcase = 1;
+
+        while (testcase < 11) {
+            int dumpCount = input.nextInt();
+            int[] lines =  new int[100];
+
+            for (int i = 0; i < lines.length; i++)
+                lines[i] = input.nextInt();
+
+            int maxIndex = 0;
+            int minIndex = 0;
+            int diff = 0;
+
+            for (int i = 0; i < dumpCount; i++) {
+                maxIndex = minIndex = 0;
+
+                for (int j = 0; j < lines.length; j++) {
+                    maxIndex = lines[maxIndex] < lines[j] ? j : maxIndex;
+                    minIndex = lines[minIndex] > lines[j] ? j : minIndex;
+                }
+
+                diff = lines[maxIndex] - lines[minIndex];
+                if(diff < 2) break;
+
+                lines[maxIndex]--;
+                lines[minIndex]++;
+            }
+
+            for (int j = 0; j < lines.length; j++) {
+                maxIndex = lines[maxIndex] < lines[j] ? j : maxIndex;
+                minIndex = lines[minIndex] > lines[j] ? j : minIndex;
+            }
+            
+            diff = lines[maxIndex] - lines[minIndex];
+            System.out.println(String.format("#%d %d", testcase, diff));
+            testcase++;
+        }
+    }
+}
