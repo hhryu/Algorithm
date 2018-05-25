@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class Solution {
+    public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
+        int testcase = 1;
+
+        while (testcase <= 10) {
+            int num = input.nextInt();
+            input.nextLine();
+
+            char[] compare = input.nextLine().toCharArray();
+            char[] sentence = input.nextLine().toCharArray();
+
+            int count = 0;
+            for (int i = 0; i < sentence.length - compare.length + 1; i++) {
+                if(sentence[i] == compare[0]) {
+                    boolean isEqual = true;
+                    for (int j = 1; j < compare.length; j++) {
+                        if(sentence[i+j] != compare[j]) {
+                            isEqual = false;
+                            break;
+                        }
+                    }
+                    if(isEqual) count++;
+                }
+            }
+            System.out.println(String.format("#%d %d", num, count));
+            testcase++;
+        }
+    }
+}
