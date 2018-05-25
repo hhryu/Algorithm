@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class Solution {
+    public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
+        int testcase = 1;
+
+        while (testcase <= 10) {
+            int N = input.nextInt();
+            int[] floors = new int[N];
+
+            int result = 0;
+            for (int i = 0; i < N; i++) {
+                floors[i] = input.nextInt();
+
+                if(i < 4) continue;
+
+                int tmp = floors[i-4];
+                for (int j = i-4+1; j <= i; j++) {
+                    if(j == i-2) continue;
+
+                    if(tmp < floors[j]) {
+                        tmp = floors[j];
+                    }
+                }
+                int subResult = floors[i-2] - tmp;
+
+                if(subResult < 1)
+                    continue;
+
+                else {
+                    result += subResult;
+                    if(i > 97) continue;
+                    floors[++i] = input.nextInt();
+                    floors[++i] = input.nextInt();
+                }
+            }
+            System.out.println(String.format("#%d %d", testcase, result));
+            testcase++;
+        }
+    }
+}
