@@ -1,0 +1,52 @@
+import java.util.*;
+
+public class Solution {
+    static final int MATRIX_LENGTH = 100;
+    static char[][] matrix = new char[MATRIX_LENGTH][MATRIX_LENGTH];
+    static int num = 0;
+
+    public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
+        while(true) {
+            int testcase = input.nextInt();
+            input.nextLine();
+
+            for (int i = 0; i < MATRIX_LENGTH ; i++) {
+                matrix[i] = input.nextLine().toCharArray();
+            }
+
+            int result = findPalindrome(MATRIX_LENGTH);
+            System.out.println(String.format("#%d %d", testcase, result));
+
+            if(testcase == 10) break;
+        }
+    }
+
+    static int findPalindrome(int pLength) {
+        if (pLength < 2) return pLength;
+
+        int maxStartPoint = 1 + MATRIX_LENGTH - pLength;
+        int middlePoint = pLength / 2;
+
+        for (int i = 0; i < MATRIX_LENGTH; i++) {
+            for (int j = 0; j < maxStartPoint; j++) {
+                boolean isRowEqual = true;
+                boolean isColumnEqual= true;
+
+                for (int k = 0; k < middlePoint; k++) {
+                    if (matrix[i][k+j] != matrix[i][pLength - 1 - k + j] && isRowEqual) {
+                        isRowEqual = false;
+                    }
+
+                    if (matrix[k+j][i] != matrix[pLength - 1 - k + j][i] && isColumnEqual) {
+                        isColumnEqual = false;
+                    }
+
+                    if (!isColumnEqual && !isRowEqual) break;
+                }
+                if (isRowEqual || isColumnEqual) return pLength;
+            }
+        }
+        return findPalindrome(pLength-1);
+    }
+}
