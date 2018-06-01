@@ -1,0 +1,41 @@
+import java.util.*;
+
+public class Solution {
+    public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
+        int testcase = input.nextInt();
+        input.nextLine();
+
+        while (testcase-- > 0) {
+            String str = input.nextLine();
+            StringTokenizer st = new StringTokenizer(str,"# ");
+
+            int num = Integer.parseInt(st.nextToken());
+            int length = Integer.parseInt(st.nextToken());
+
+            String[] arry = new String[]
+                    {"ZRO", "ONE", "TWO", "THR", "FOR", "FIV", "SIX", "SVN", "EGT", "NIN"};
+
+            HashMap<String, Integer> map = new HashMap<String, Integer>();
+
+            for (String s : arry) {
+                map.put(s, 0);
+            }
+
+            for (int i = 0; i < length; i++) {
+                String key = input.next();
+                map.replace(key, map.get(key)+1);
+            }
+            input.nextLine();
+
+            System.out.println(String.format("#%d", num));
+            for (int i = 0; i < arry.length; i++) {
+                int count = map.get(arry[i]);
+
+                for (int j = 0; j < count; j++) {
+                    System.out.print(arry[i] + " ");
+                }
+            }
+        }
+    }
+}
