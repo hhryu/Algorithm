@@ -1,0 +1,63 @@
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class Solution {
+    private static final int NUM_LENGTH = 6;
+
+    public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
+
+        int testcase = 0;
+        while (++testcase < 11) {
+            int pLength = Integer.parseInt(input.nextLine());
+
+            StringBuilder passwords = new StringBuilder(input.nextLine().trim());
+
+            int count = Integer.parseInt(input.nextLine());
+
+            StringTokenizer commands = new StringTokenizer(input.nextLine(), " ");
+
+            while(commands.hasMoreTokens()) {
+                String cmd = commands.nextToken();
+
+                if(cmd.equals("I")) {
+                    int x = Integer.parseInt(commands.nextToken());
+                    int y = Integer.parseInt(commands.nextToken());
+                    int index = NUM_LENGTH * x + x;
+
+                    StringBuilder sb = new StringBuilder();
+
+                    for (int i = 0; i < y; i++) {
+                        sb.append(commands.nextToken() + " ");
+                    }
+
+                    passwords.insert(index, sb.toString());
+                }
+                else if(cmd.equals("D")) {
+                    int x = Integer.parseInt(commands.nextToken());
+                    int y = Integer.parseInt(commands.nextToken());
+                    int index = NUM_LENGTH * x + x;
+
+                    for (int i = 0; i < y; i++) {
+                        passwords.delete(index, index+NUM_LENGTH);
+                    }
+                }
+                else if(cmd.equals("A")) {
+                    int y = Integer.parseInt(commands.nextToken());
+
+                    for (int i = 0; i < y; i++) {
+                        passwords.append(commands.nextToken()+ " ");
+                    }
+                }
+            }
+
+            System.out.print("#" + testcase);
+            StringTokenizer st = new StringTokenizer(passwords.substring(0, NUM_LENGTH * 10 + 9));
+
+            while (st.hasMoreTokens()) {
+                System.out.print(" " + st.nextToken());
+            }
+            System.out.println();
+        }
+    }
+}
