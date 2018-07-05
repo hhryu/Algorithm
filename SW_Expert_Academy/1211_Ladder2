@@ -1,0 +1,60 @@
+import java.util.*;
+
+public class Solution {
+    private static final int MATRIX_LENGTH = 100;
+
+    public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
+        int testcase = 0;
+
+        while (testcase < 10) {
+            testcase = Integer.parseInt(input.nextLine());
+            int[][] matrix = new int[MATRIX_LENGTH][MATRIX_LENGTH];
+
+            for (int i = 0; i < MATRIX_LENGTH; i++) {
+                StringTokenizer st = new StringTokenizer(input.nextLine());
+
+                for (int j = 0; j < MATRIX_LENGTH; j++) {
+                    matrix[i][j] = Integer.parseInt(st.nextToken());
+                }
+            }
+
+            int index = -1;
+            int distance = 0;
+            for (int i = 0; i < MATRIX_LENGTH; i++) {
+                int rowIndex = 0;
+                int columnIndex = i;
+
+                if(matrix[rowIndex][columnIndex] == 0) continue;
+
+                int count = 0;
+                boolean wasLeft = false;
+                boolean wasRight = false;
+
+                while (true) {
+                    if(columnIndex > 0 && !wasRight && matrix[rowIndex][columnIndex-1] == 1) {
+                        columnIndex--;
+                        wasLeft = true;
+
+                    } else if(columnIndex < MATRIX_LENGTH-1 && !wasLeft && matrix[rowIndex][columnIndex+1] == 1) {
+                        columnIndex++;
+                        wasRight = true;
+
+                    } else if(rowIndex < MATRIX_LENGTH-1 && matrix[rowIndex+1][columnIndex] == 1) {
+                        rowIndex++;
+                        wasLeft = wasRight = false;
+
+                    } else {
+                        if(distance == 0 || distance > count) {
+                            distance = count;
+                            index = i;
+                        }
+                        break;
+                    }
+                    count++;
+                }
+            }
+            System.out.println("#" + testcase + " " + index);
+        }
+    }
+}
