@@ -1,0 +1,33 @@
+import java.util.*;
+
+public class Solution {
+    private static final int TESTCASE_NUMBER = 10;
+
+    public static void main(String args[]) {
+        Scanner input = new Scanner(System.in);
+        int num = 0;
+
+        while (++num <= TESTCASE_NUMBER) {
+            int length = Integer.parseInt(input.nextLine());
+            StringBuilder sb = new StringBuilder(input.nextLine());
+
+            while (length > 0) {
+                boolean removed = false;
+                for (int i = 0; i < length - 1; i++) {
+                    int difference = Math.abs(sb.charAt(i) - sb.charAt(i+1));
+                    if(difference == 1 || difference == 2) {
+                        sb.delete(i, i+2);
+                        removed = true;
+                        break;
+                    }
+                }
+                if(!removed) break;
+                else length -= 2;
+            }
+            System.out.print("#" + num + " ");
+            
+            if(length == 0) System.out.println(1);
+            else System.out.println(0);
+        }
+    }
+}
