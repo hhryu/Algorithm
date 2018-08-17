@@ -1,0 +1,93 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int testcase = 0;
+        while (++testcase <= 10) {
+            int numOfNodes = Integer.parseInt(br.readLine());
+
+            HashMap<Integer, Node> map = new HashMap<>();
+            HashMap<Integer, int[]> pointers = new HashMap<>();
+
+            Node[] nodes = new Node[numOfNodes];
+            for (int i = 1; i <= numOfNodes; i++) {
+                StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+                int index = Integer.parseInt(st.nextToken());
+
+                Node node = new Node();
+                node.value = st.nextToken();
+                map.put(index, node);
+
+                int[] arry = new int[2];
+
+                int size = st.countTokens();
+                if(size < 1) continue;
+
+                for (int j = 0; j < size; j++) {
+                    arry[j] = Integer.parseInt(st.nextToken());
+                }
+                pointers.put(index, arry);
+            }
+
+            for (int i = 1; i <= pointers.size(); i++) {
+                int[] t = pointers.get(i);
+
+                map.get(i).setLeft(map.get(t[0]));
+
+                if(t[1] == 0) continue;
+
+                map.get(i).setRight(map.get(t[1]));
+            }
+            Node root = map.get(1);
+            map = null;
+
+            System.out.print("#" + testcase + " ");
+            traverse(root);
+            System.out.println();
+        }
+    }
+
+    private static void traverse(Node n) {
+        if(n.left != null)  traverse(n.left);
+
+        System.out.print(n.value);
+
+        if(n.right != null) traverse(n.right);
+    }
+}
+
+class Node {
+    String value;
+    Node left;
+    Node right;
+
+    public String getValue() {
+        return value;
+    }
+
+    public Node getLeft() {
+        return left;
+    }
+
+    public Node getRight() {
+        return right;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void setLeft(Node left) {
+        this.left = left;
+    }
+
+    public void setRight(Node right) {
+        this.right = right;
+    }
+}
